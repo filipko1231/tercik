@@ -28,7 +28,18 @@ public class Controller implements Initializable{
     public int galtonBoard(int pozicia, int hladina){
         if (hladina==0) return pozicia;
         else if (rn.nextInt(2)==1) return galtonBoard(pozicia+1,hladina-1);
-        return galtonBoard(pozicia-1,hladina-1);
+        return galtonBoard(pozicia,hladina-1);
+    }
+
+    public static int galton(int hladina , int pozicia){
+        Random rd = new Random();
+        if (hladina==0){
+            return pozicia;
+        }else if (rd.nextBoolean()){
+            return galton(hladina-1,pozicia);
+        }else {
+            return galton(hladina-1,pozicia+1);
+        }
     }
 
     public void mouseMove(MouseEvent mouseEvent) {
@@ -36,7 +47,9 @@ public class Controller implements Initializable{
         //x_nová = x_stará+(x_nová_nameraná-x_stará)*0.1
 
         xmysi=mouseEvent.getSceneX()-kriz.getFitWidth()/2;           //xmysi
-        ymysi=mouseEvent.getSceneY()-kriz.getFitHeight()/2;          //ymysi
+        ymysi=mouseEvent.getSceneY()-kriz.getFitHeight()/2;//ymysi
+
+
     }
 
 
@@ -46,17 +59,18 @@ public class Controller implements Initializable{
             @Override
             public void handle(long l) {
                 perioda++;
-                if (perioda % 10 == 0){
+                if (perioda % 15 == 0){
     /*              int rozptyl = (int) (10 * (unava.getValue()+1));
                     xmysi +=  rn.nextInt(2*rozptyl)-rozptyl;
                     ymysi +=  rn.nextInt(2*rozptyl)-rozptyl;
     */
-                    xmysi = xmysi + galtonBoard(0,10) * (unava.getValue()+1);
-                    ymysi = ymysi + galtonBoard(0,10) * (unava.getValue()+1);
+                    xmysiFix = xmysi + galton(10,-5) * ((unava.getValue()*3)+1);
+
+                    ymysiFix = ymysi + galton(10,-5) * ((unava.getValue()*3)+1);
 
                 }
-                kriz.setX(kriz.getX()*0.95+xmysi*0.05);
-                kriz.setY(kriz.getY()*0.95+ymysi*0.05);
+                kriz.setX(kriz.getX()*0.97+xmysiFix*0.03);
+                kriz.setY(kriz.getY()*0.97+ymysiFix*0.03);
             }
         }.start();
     }
