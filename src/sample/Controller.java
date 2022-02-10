@@ -90,14 +90,21 @@ public class Controller implements Initializable{
     public void pifpaf(MouseEvent mouseEvent) {
         Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
         c=vietor(c);
+        Spetny_raz(100);
         panel.getChildren().add(c);
     }
     public Circle vietor(Circle c){
         Circle vystup =c;
 
-        vystup.setCenterY(vystup.getCenterY()+(Math.sin(Math.toRadians(smer_vetra.getValue()-45+short_galton(45,0))))*short_galton((int) sila_vetra.getValue(),0));
-        vystup.setCenterX(vystup.getCenterX()+(Math.cos(Math.toRadians(smer_vetra.getValue()-45+short_galton(45,0))))*short_galton((int) sila_vetra.getValue(),0));
+        vystup.setCenterY(vystup.getCenterY()+(Math.sin(Math.toRadians(smer_vetra.getValue()-90+short_galton(90,0))))*short_galton((int) sila_vetra.getValue(),0));
+        vystup.setCenterX(vystup.getCenterX()+(Math.cos(Math.toRadians(smer_vetra.getValue()-90+short_galton(90,0))))*short_galton((int) sila_vetra.getValue(),0));
 
         return vystup;
     }
+
+    public void Spetny_raz(int Power){
+        ymysiFix=ymysiFix-short_galton(Power,0);
+
+    }
+
 }
