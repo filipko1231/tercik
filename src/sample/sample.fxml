@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
     <right>
@@ -24,6 +25,15 @@
                         <Insets left="5.0" right="5.0" top="10.0" />
                     </VBox.margin>
                 </Slider>
+            <Label prefHeight="18.0" prefWidth="55.0" text="Vietor">
+               <font>
+                  <Font size="20.0" />
+               </font>
+            </Label>
+            <Label prefHeight="18.0" prefWidth="55.0" text="Smer" />
+            <Slider fx:id="smer_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Label prefHeight="18.0" prefWidth="55.0" text="Sila" />
+            <Slider fx:id="sila_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="200.0" min="1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
