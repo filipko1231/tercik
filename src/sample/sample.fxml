@@ -34,6 +34,8 @@
             <Slider fx:id="smer_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             <Label prefHeight="18.0" prefWidth="55.0" text="Sila" />
             <Slider fx:id="sila_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="200.0" min="1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Label prefHeight="18.0" prefWidth="96.0" text="Náhodnosť" />
+            <Slider fx:id="nahodnost_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />

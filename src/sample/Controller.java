@@ -24,6 +24,8 @@ public class Controller implements Initializable{
     Slider sila_vetra;
     @FXML
     Slider smer_vetra;
+    @FXML
+    Slider nahodnost_vetra;
 
     int perioda=0;
     double xmysi,ymysi,xmysiFix,ymysiFix;
@@ -96,8 +98,8 @@ public class Controller implements Initializable{
     public Circle vietor(Circle c){
         Circle vystup =c;
 
-        vystup.setCenterY(vystup.getCenterY()+(Math.sin(Math.toRadians(smer_vetra.getValue()-90+short_galton(90,0))))*short_galton((int) sila_vetra.getValue(),0));
-        vystup.setCenterX(vystup.getCenterX()+(Math.cos(Math.toRadians(smer_vetra.getValue()-90+short_galton(90,0))))*short_galton((int) sila_vetra.getValue(),0));
+        vystup.setCenterY(vystup.getCenterY()+(Math.sin(Math.toRadians(smer_vetra.getValue()-nahodnost_vetra.getValue()+short_galton((int) nahodnost_vetra.getValue(),0))))*short_galton((int) sila_vetra.getValue(),0));
+        vystup.setCenterX(vystup.getCenterX()+(Math.cos(Math.toRadians(smer_vetra.getValue()-nahodnost_vetra.getValue()+short_galton((int) nahodnost_vetra.getValue(),0))))*short_galton((int) sila_vetra.getValue(),0));
 
         return vystup;
     }
