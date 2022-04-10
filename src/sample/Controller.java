@@ -28,9 +28,14 @@ public class Controller implements Initializable{
     Slider nahodnost_vetra;
 
     int perioda=0;
-    double xmysi,ymysi,xmysiFix,ymysiFix;
+    double xmysi,ymysi,xmysiFix,ymysiFix,xmysilast,ymysilast;
     Random rn=new Random();
     int cas_do_zatrasenia;
+    Casovac c = new Casovac();
+
+
+    int tolerancia_pohybu=5;
+    int penalizacia_za_pohyb = 30;
 
     public int galtonBoard(int pozicia, int hladina){
         if (hladina==0) return pozicia;
@@ -60,11 +65,21 @@ public class Controller implements Initializable{
         ymysi=mouseEvent.getSceneY()-kriz.getFitHeight()/2;//ymysi
 
 
+        if (!(xmysi>=xmysilast-tolerancia_pohybu && xmysi<=xmysilast+tolerancia_pohybu && ymysi>=ymysilast-tolerancia_pohybu && ymysi<=ymysilast+tolerancia_pohybu )){
+            xmysilast = xmysi;
+            ymysilast = ymysi;
+            c.count=0;
+
+
+        }
     }
 
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        c.start();
+        xmysilast = 0;
+        ymysilast = 0;
         cas_do_zatrasenia = short_galton(15,0);
         new AnimationTimer() {
             @Override
@@ -92,6 +107,8 @@ public class Controller implements Initializable{
     public void pifpaf(MouseEvent mouseEvent) {
         Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
         c=vietor(c);
+        c=penalizacia(500,c);
+
         Spetny_raz(100);
         panel.getChildren().add(c);
     }
@@ -103,10 +120,20 @@ public class Controller implements Initializable{
 
         return vystup;
     }
+    public Circle penalizacia(int cas ,Circle stred){
+        Circle vystup =stred;
+        if (c.count<=cas) {
+            vystup.setCenterY(vystup.getCenterY()+short_galton(penalizacia_za_pohyb,0)-penalizacia_za_pohyb);
+            vystup.setCenterX(vystup.getCenterX()+short_galton(penalizacia_za_pohyb,0)-penalizacia_za_pohyb);
+        }
+        return vystup;
+    }
 
     public void Spetny_raz(int Power){
         ymysiFix=ymysiFix-short_galton(Power,0);
 
     }
 
+
 }
+
