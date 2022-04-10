@@ -4,7 +4,9 @@ import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +35,10 @@ public class Controller implements Initializable{
     Circle circ0,circ1,circ2,circ3,circ4,circ5,circ6,circ7,circ8,circ9;
     @FXML
     Line sipka;
+    @FXML
+    Button vynulovat;
+    @FXML
+    TextArea text;
 
 
 
@@ -41,7 +47,10 @@ public class Controller implements Initializable{
     Random rn=new Random();
     int cas_do_zatrasenia;
     Casovac c = new Casovac();
+    int body = 0;
+    int pokusy = 10;
     vektor v;
+
 
 
     int tolerancia_pohybu=5;
@@ -127,13 +136,18 @@ public class Controller implements Initializable{
         sipka.setStartY(sipka.getEndY()+v.y);
     }
     public void pifpaf(MouseEvent mouseEvent) {
-        Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
-        c=vietor(c);
-        c=penalizacia(500,c);
-        System.out.println("pocet bodov = "+pocetb(c));
-        System.out.println(c.getCenterX()+" "+c.getCenterY());
-        Spetny_raz(100);
-        panel.getChildren().add(c);
+        if (pokusy>0){
+            Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
+            c=vietor(c);
+            c=penalizacia(500,c);
+            System.out.println("pocet bodov = "+pocetb(c));
+            body += pocetb(c);
+            pokusy--;
+            System.out.println(c.getCenterX()+" "+c.getCenterY());
+            Spetny_raz(100);
+            panel.getChildren().add(c);
+        }
+        updateScore();
     }
     public Circle vietor(Circle c){
         Circle vystup =c;
@@ -198,7 +212,15 @@ public class Controller implements Initializable{
     public boolean contain(Circle vystup,Circle kruhy){
         return Math.sqrt((288 - vystup.getCenterY()) * (288 - vystup.getCenterY()) + (326 - vystup.getCenterX()) * (326 - vystup.getCenterX()))<=kruhy.getRadius();
     }
-
+    public void updateScore(){
+        text.setText("Pokusy : "+pokusy+"\n" +
+                     "Body : "+body);
+    }
+    public void vynulovatScore(){
+        pokusy = 10;
+        body = 0;
+        updateScore();
+    }
 
 }
 
