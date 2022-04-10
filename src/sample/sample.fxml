@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
@@ -32,11 +33,16 @@
                </font>
             </Label>
             <Label prefHeight="18.0" prefWidth="55.0" text="Smer" />
-            <Slider fx:id="smer_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Slider fx:id="smer_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" onDragDone="#vector_update" onMouseExited="#vector_update" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             <Label prefHeight="18.0" prefWidth="55.0" text="Sila" />
-            <Slider fx:id="sila_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="200.0" min="1.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Slider fx:id="sila_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="200.0" min="1.0" onDragDropped="#vector_update" onMouseExited="#vector_update" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             <Label prefHeight="18.0" prefWidth="96.0" text="Náhodnosť" />
-            <Slider fx:id="nahodnost_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <Slider fx:id="nahodnost_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" onDragDropped="#vector_update" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+            <AnchorPane prefHeight="127.0" prefWidth="118.0">
+               <children>
+                  <Line fx:id="sipka" endX="5.31402587890625" endY="-7.62939453125E-6" layoutX="60.0" layoutY="60.0" startX="-59.99993896484375" startY="-7.62939453125E-6" />
+               </children>
+            </AnchorPane>
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />

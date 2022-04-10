@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
 
 import java.net.URL;
 import java.util.Arrays;
@@ -30,6 +31,8 @@ public class Controller implements Initializable{
     Slider nahodnost_vetra;
     @FXML
     Circle circ0,circ1,circ2,circ3,circ4,circ5,circ6,circ7,circ8,circ9;
+    @FXML
+    Line sipka;
 
 
 
@@ -38,6 +41,7 @@ public class Controller implements Initializable{
     Random rn=new Random();
     int cas_do_zatrasenia;
     Casovac c = new Casovac();
+    vektor v;
 
 
     int tolerancia_pohybu=5;
@@ -83,8 +87,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
-
+        v= new vektor(nahodnost_vetra.getValue(),smer_vetra.getValue(),sila_vetra.getValue());
+        v.start();
         c.start();
         xmysilast = 0;
         ymysilast = 0;
@@ -106,12 +110,22 @@ public class Controller implements Initializable{
                 }
                 kriz.setX(kriz.getX()*0.97+xmysiFix*0.03);
                 kriz.setY(kriz.getY()*0.97+ymysiFix*0.03);
-
+                setSipka();
                 cas_do_zatrasenia--;
             }
         }.start();
     }
+    public void vector_update(){
+        v.sh();
+        v= new vektor(nahodnost_vetra.getValue(),smer_vetra.getValue(),sila_vetra.getValue());
+        v.start();
+        System.out.println("xdxdxdxdxdxdx");
+    }
 
+    public void setSipka(){
+        sipka.setStartX(sipka.getEndX()+v.x);
+        sipka.setStartY(sipka.getEndY()+v.y);
+    }
     public void pifpaf(MouseEvent mouseEvent) {
         Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
         c=vietor(c);
@@ -124,8 +138,8 @@ public class Controller implements Initializable{
     public Circle vietor(Circle c){
         Circle vystup =c;
 
-        vystup.setCenterY(vystup.getCenterY()+(Math.sin(Math.toRadians(smer_vetra.getValue()-nahodnost_vetra.getValue()+short_galton((int) nahodnost_vetra.getValue(),0))))*short_galton((int) sila_vetra.getValue(),0));
-        vystup.setCenterX(vystup.getCenterX()+(Math.cos(Math.toRadians(smer_vetra.getValue()-nahodnost_vetra.getValue()+short_galton((int) nahodnost_vetra.getValue(),0))))*short_galton((int) sila_vetra.getValue(),0));
+        vystup.setCenterY(vystup.getCenterY()+v.y);
+        vystup.setCenterX(vystup.getCenterX()+v.x);
 
         return vystup;
     }
@@ -184,7 +198,6 @@ public class Controller implements Initializable{
     public boolean contain(Circle vystup,Circle kruhy){
         return Math.sqrt((288 - vystup.getCenterY()) * (288 - vystup.getCenterY()) + (326 - vystup.getCenterX()) * (326 - vystup.getCenterX()))<=kruhy.getRadius();
     }
-//326,390
 
 
 }
