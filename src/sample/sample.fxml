@@ -9,6 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="652.0" prefWidth="866.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
@@ -44,6 +45,16 @@
     <center>
         <AnchorPane fx:id="panel" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
             <children>
+            <Circle fx:id="circ0" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="30.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ1" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="50.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ2" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="74.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ3" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="103.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ4" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="125.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ5" fill="#ffffff00" layoutX="328.0" layoutY="289.0" opacity="0.0" radius="149.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ6" fill="#ffffff00" layoutX="327.0" layoutY="289.0" opacity="0.0" radius="172.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ7" fill="#ffffff00" layoutX="328.0" layoutY="289.0" opacity="0.0" radius="199.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ8" fill="#ffffff00" layoutX="327.0" layoutY="290.0" opacity="0.0" radius="223.0" stroke="TRANSPARENT" strokeType="INSIDE" />
+            <Circle fx:id="circ9" fill="#ffffff00" layoutX="328.0" layoutY="290.0" opacity="0.0" radius="250.0" stroke="TRANSPARENT" strokeType="INSIDE" />
                 <ImageView fx:id="kriz" fitHeight="82.0" fitWidth="81.0" pickOnBounds="true" preserveRatio="true">
                     <image>
                         <Image url="@../ZámernýKríž.png" />

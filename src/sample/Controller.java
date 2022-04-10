@@ -1,5 +1,6 @@
 package sample;
 
+import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -26,6 +28,10 @@ public class Controller implements Initializable{
     Slider smer_vetra;
     @FXML
     Slider nahodnost_vetra;
+    @FXML
+    Circle circ0,circ1,circ2,circ3,circ4,circ5,circ6,circ7,circ8,circ9;
+
+
 
     int perioda=0;
     double xmysi,ymysi,xmysiFix,ymysiFix,xmysilast,ymysilast;
@@ -77,6 +83,8 @@ public class Controller implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+
         c.start();
         xmysilast = 0;
         ymysilast = 0;
@@ -108,7 +116,8 @@ public class Controller implements Initializable{
         Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
         c=vietor(c);
         c=penalizacia(500,c);
-
+        System.out.println("pocet bodov = "+pocetb(c));
+        System.out.println(c.getCenterX()+" "+c.getCenterY());
         Spetny_raz(100);
         panel.getChildren().add(c);
     }
@@ -133,6 +142,49 @@ public class Controller implements Initializable{
         ymysiFix=ymysiFix-short_galton(Power,0);
 
     }
+    public int pocetb(Circle stred){
+        Circle vystup =stred;
+        int sucet=0;
+
+        if (contain(vystup,circ0)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ1)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ2)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ3)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ4)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ5)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ6)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ7)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ8)){
+            sucet+=10;
+        }
+        if (contain(vystup,circ9)){
+            sucet+=10;
+        }
+
+
+
+        return sucet;
+    }
+    public boolean contain(Circle vystup,Circle kruhy){
+        return Math.sqrt((288 - vystup.getCenterY()) * (288 - vystup.getCenterY()) + (326 - vystup.getCenterX()) * (326 - vystup.getCenterX()))<=kruhy.getRadius();
+    }
+//326,390
 
 
 }
