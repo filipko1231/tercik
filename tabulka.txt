@@ -1,5 +1,4 @@
 Meno;Strely;Skóre
-2;2;130
-2;2;60
-filip;46;3030
-filip;5;340
+matej;5;380
+matej;5;260
+Filip;20;1640
