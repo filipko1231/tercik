@@ -2,19 +2,26 @@ package sample;
 
 import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 
+
+import java.io.IOException;
 import java.net.URL;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.Random;
 import java.util.ResourceBundle;
 
@@ -38,7 +45,14 @@ public class Controller implements Initializable{
     @FXML
     Button vynulovat;
     @FXML
+    Button start;
+    @FXML
     TextArea text;
+    @FXML
+    TextField pocetStriel;
+    @FXML
+    TextField meno;
+
 
 
 
@@ -48,8 +62,9 @@ public class Controller implements Initializable{
     int cas_do_zatrasenia;
     Casovac c = new Casovac();
     int body = 0;
-    int pokusy = 10;
+    int pokusy = 0;
     vektor v;
+    boolean hrame = false;
 
 
 
@@ -123,6 +138,16 @@ public class Controller implements Initializable{
                 cas_do_zatrasenia--;
             }
         }.start();
+        pocetStriel.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    pocetStriel.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+            }
+        });
+        pocetStriel.setText("");
     }
     public void vector_update(){
         v.sh();
@@ -132,11 +157,11 @@ public class Controller implements Initializable{
     }
 
     public void setSipka(){
-        sipka.setStartX(sipka.getEndX()+v.x);
-        sipka.setStartY(sipka.getEndY()+v.y);
+        sipka.setStartX(sipka.getEndX()+v.x/4.5);
+        sipka.setStartY(sipka.getEndY()+v.y/4.5);
     }
-    public void pifpaf(MouseEvent mouseEvent) {
-        if (pokusy>0){
+    public void pifpaf(MouseEvent mouseEvent) throws IOException {
+        if (hrame){
             Circle c = new Circle(kriz.getX()+kriz.getFitWidth()/2,kriz.getY()+kriz.getFitHeight()/2,5);
             c=vietor(c);
             c=penalizacia(500,c);
@@ -146,6 +171,10 @@ public class Controller implements Initializable{
             System.out.println(c.getCenterX()+" "+c.getCenterY());
             Spetny_raz(100);
             panel.getChildren().add(c);
+        }
+        if (hrame && pokusy == 0){
+            hrame = false;
+            Files.write(Paths.get("tabulka.txt"), (meno.getText()+";" + Integer.parseInt(pocetStriel.getText()) + ";" + body+"\n").getBytes(), StandardOpenOption.APPEND);
         }
         updateScore();
     }
@@ -212,14 +241,32 @@ public class Controller implements Initializable{
     public boolean contain(Circle vystup,Circle kruhy){
         return Math.sqrt((288 - vystup.getCenterY()) * (288 - vystup.getCenterY()) + (326 - vystup.getCenterX()) * (326 - vystup.getCenterX()))<=kruhy.getRadius();
     }
+
+
+    public void start(){
+        if (!pocetStriel.getText().isEmpty() && !meno.getText().isEmpty()){
+            if (pocetStriel.getText().charAt(0) != '0'){
+                hrame = true;
+                start.setDisable(true);
+                pocetStriel.setDisable(true);
+                meno.setDisable(true);
+                pokusy = Integer.parseInt(pocetStriel.getText());
+                updateScore();
+            }
+        }
+    }
     public void updateScore(){
         text.setText("Pokusy : "+pokusy+"\n" +
                      "Body : "+body);
     }
     public void vynulovatScore(){
-        pokusy = 10;
+        pokusy = 0;
         body = 0;
+        hrame = false;
         updateScore();
+        pocetStriel.setDisable(false);
+        start.setDisable(false);
+        meno.setDisable(false);
     }
 
 }

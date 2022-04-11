@@ -6,6 +6,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -21,12 +22,12 @@
             <children>
                 <Label text="Vyčerpanosť">
                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
+                        <Insets left="5.0" right="5.0" top="5.0" />
                     </VBox.margin>
                 </Label>
                 <Slider fx:id="unava" blockIncrement="1.0" majorTickUnit="5.0" max="20.0" showTickLabels="true" showTickMarks="true" snapToTicks="true">
                     <VBox.margin>
-                        <Insets left="5.0" right="5.0" top="10.0" />
+                        <Insets left="5.0" right="5.0" />
                     </VBox.margin>
                 </Slider>
             <Label prefHeight="18.0" prefWidth="55.0" text="Vietor">
@@ -40,13 +41,47 @@
             <Slider fx:id="sila_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="200.0" min="1.0" onDragDropped="#vector_update" onMouseExited="#vector_update" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
             <Label prefHeight="18.0" prefWidth="96.0" text="Náhodnosť" />
             <Slider fx:id="nahodnost_vetra" blockIncrement="1.0" majorTickUnit="5.0" max="360.0" onDragDropped="#vector_update" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
-            <AnchorPane prefHeight="127.0" prefWidth="118.0">
+            <AnchorPane prefHeight="118.0" prefWidth="118.0" style="-fx-background-color: white;">
                <children>
                   <Line fx:id="sipka" endX="5.31402587890625" endY="-7.62939453125E-6" layoutX="60.0" layoutY="60.0" startX="-59.99993896484375" startY="-7.62939453125E-6" />
                </children>
             </AnchorPane>
-            <TextArea fx:id="text" editable="false" prefHeight="64.0" prefWidth="118.0" text="Pokusy : 10&#10;Body : 0" />
-            <Button fx:id="vynulovat" mnemonicParsing="false" onAction="#vynulovatScore" text="Vynulovať" />
+            <Label text="Hra">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextField fx:id="meno" promptText="Meno">
+               <VBox.margin>
+                  <Insets bottom="2.0" />
+               </VBox.margin>
+            </TextField>
+            <TextField fx:id="pocetStriel" promptText="Počet striel" text="5">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <Button fx:id="start" defaultButton="true" mnemonicParsing="false" onAction="#start" prefHeight="26.0" prefWidth="125.0" text="Štart">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Button>
+            <Label text="Score">
+               <font>
+                  <Font size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </Label>
+            <TextArea fx:id="text" editable="false" prefHeight="46.0" prefWidth="118.0" text="Pokusy : 0&#10;Body : 0" />
+            <Button fx:id="vynulovat" mnemonicParsing="false" onAction="#vynulovatScore" prefHeight="26.0" prefWidth="118.0" text="Vynulovať" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
