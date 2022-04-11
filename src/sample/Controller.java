@@ -4,19 +4,25 @@ import com.sun.javafx.geom.Point2D;
 import javafx.animation.AnimationTimer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
@@ -24,6 +30,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.Random;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Controller implements Initializable{
     @FXML
@@ -267,6 +275,52 @@ public class Controller implements Initializable{
         pocetStriel.setDisable(false);
         start.setDisable(false);
         meno.setDisable(false);
+    }
+    public void otvoritTabulku() throws IOException {
+        try
+        {
+            FXMLLoader fxmlLoader = new FXMLLoader();
+            fxmlLoader.setLocation(getClass().getResource("tabulka.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 255, 200);
+            Stage stage = new Stage();
+            stage.setTitle("Tabuľka výsledkov");
+            stage.setScene(scene);
+            stage.initModality(Modality.APPLICATION_MODAL);
+            BufferedReader br = new BufferedReader(new FileReader("tabulka.txt"));
+            TableView tabulka = new TableView();
+
+            TableColumn firstNameCol = new TableColumn("First Name");
+            firstNameCol.setMinWidth(300);
+
+            TableColumn lastNameCol = new TableColumn("Last Name");
+            lastNameCol.setMinWidth(300);
+
+            TableColumn emailCol = new TableColumn("Email");
+            emailCol.setMinWidth(300);
+
+            tabulka.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
+
+            firstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+            lastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+            emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
+            String str = "";
+            str = br.readLine();
+            System.out.println(str);
+            String [] pole = str.split(";");
+            //Tabulka tab = new Tabulka(pole[0],pole[1],pole[2]);
+
+
+            ObservableList data = FXCollections.observableArrayList(
+                    new Tabulka(pole[0],pole[1],pole[2])
+            );
+            tabulka.setItems(data);
+            stage.show();
+        }
+        catch (IOException e)
+        {
+            Logger logger = Logger.getLogger(getClass().getName());
+            logger.log(Level.SEVERE, "Failed to create new Window.", e);
+        }
     }
 
 }

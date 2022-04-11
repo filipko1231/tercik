@@ -82,6 +82,7 @@
             </Label>
             <TextArea fx:id="text" editable="false" prefHeight="46.0" prefWidth="118.0" text="Pokusy : 0&#10;Body : 0" />
             <Button fx:id="vynulovat" mnemonicParsing="false" onAction="#vynulovatScore" prefHeight="26.0" prefWidth="118.0" text="Vynulovať" />
+            <Button fx:id="otvorTabulku" mnemonicParsing="false" onAction="#otvoritTabulku" prefHeight="26.0" prefWidth="124.0" text="Tabuľka" />
             </children>
             <cursor>
                 <Cursor fx:constant="DEFAULT" />
